@@ -1,0 +1,20 @@
+oais:
+  storage:
+    archival-root: ./build/test-archival/samples
+    derived-cache: ./build/test-archival/derived-cache
+  anti-download:
+    mode: 1
+    page-token-ttl-seconds: 30
+  watermark:
+    template: "{viewerId}-{timestamp}"
+    enabled-for-modes: [2, 3]
+  rendering:
+    pdf-dpi: 150
+    office-convert-timeout-seconds: 60
+    ffmpeg-timeout-seconds: 300
+    libreoffice-binary: soffice
+    ffmpeg-binary: ffmpeg
+  audit:
+    log-path: ./build/test-logs/access-audit.log
+  cors:
+    allowed-origins: http://localhost:5173

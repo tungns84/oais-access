@@ -1,0 +1,34 @@
+server:
+  port: ${SERVER_PORT:8090}
+
+spring:
+  application:
+    name: poc-oais-access
+  servlet:
+    multipart:
+      enabled: false
+
+oais:
+  storage:
+    archival-root: ${OAIS_STORAGE_ARCHIVAL_ROOT:../archival-storage/samples}
+    derived-cache: ${OAIS_STORAGE_DERIVED_CACHE:../archival-storage/derived-cache}
+  anti-download:
+    mode: ${OAIS_ANTI_DOWNLOAD_MODE:1}
+    page-token-ttl-seconds: 30
+  watermark:
+    template: "{viewerId}-{timestamp}"
+    enabled-for-modes: [2, 3]
+  rendering:
+    pdf-dpi: 150
+    office-convert-timeout-seconds: 60
+    ffmpeg-timeout-seconds: 300
+    libreoffice-binary: ${LIBREOFFICE_BINARY:soffice}
+    ffmpeg-binary: ${FFMPEG_BINARY:ffmpeg}
+  audit:
+    log-path: ./logs/access-audit.log
+  cors:
+    allowed-origins: http://localhost:5173
+
+logging:
+  level:
+    com.poc.oais.access: DEBUG

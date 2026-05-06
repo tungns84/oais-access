@@ -1,0 +1,25 @@
+services:
+  backend:
+    image: eclipse-temurin:21-jdk
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+      - ./archival-storage:/archival-storage
+    ports:
+      - "8080:8080"
+    environment:
+      OAIS_STORAGE_ARCHIVAL_ROOT: /archival-storage/samples
+      OAIS_STORAGE_DERIVED_CACHE: /archival-storage/derived-cache
+    command: >
+      bash -c "apt-get update &&
+               apt-get install -y libreoffice ffmpeg &&
+               ./gradlew bootRun --no-daemon"
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
